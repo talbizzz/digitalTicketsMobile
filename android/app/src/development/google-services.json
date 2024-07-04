@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730801840290",
+    "project_id": "digitaltickets-development",
+    "storage_bucket": "digitaltickets-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730801840290:android:f49079bed423bcfa1d77fb",
+        "android_client_info": {
+          "package_name": "com.digitalticketsmobile.development"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQsFcytcgB7qW1KavrsBrc6zgJQaGSgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

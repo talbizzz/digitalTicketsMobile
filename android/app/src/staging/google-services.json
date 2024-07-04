@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "663255172926",
+    "project_id": "digitaltickets-staging",
+    "storage_bucket": "digitaltickets-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663255172926:android:49058d055437d4664bce6f",
+        "android_client_info": {
+          "package_name": "com.digitalticketsmobile.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlMminH-a0ty6IWk5CkS-vOdbBknR-j_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

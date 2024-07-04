@@ -17,8 +17,13 @@ end
 target 'digitalTicketsMobile' do
   config = use_native_modules!
 
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+  pod 'GoogleUtilities', :modular_headers => true
+
   use_react_native!(
     :path => config[:reactNativePath],
+
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -26,6 +31,14 @@ target 'digitalTicketsMobile' do
   target 'digitalTicketsMobileTests' do
     inherit! :complete
     # Pods for testing
+  end
+
+  target 'digitalTicketsMobileDevelopment' do
+    inherit! :complete
+  end
+
+  target 'digitalTicketsMobileStaging' do
+    inherit! :complete
   end
 
   post_install do |installer|

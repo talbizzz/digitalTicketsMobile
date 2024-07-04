@@ -1,6 +1,17 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
+
+project.ext.envConfigFiles = [
+   productionDebug: ".env.production",
+   productionRelease: ".env.production",
+   stagingDebug: ".env.staging",
+   stagingRelease: ".env.staging",
+   developmentDebug: ".env.development",
+   developmentRelease: ".env.development"
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -74,6 +85,25 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.digitalticketsmobile"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.digitalticketsmobile.staging"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+        }
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.digitalticketsmobile.development"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+        }
+    }
+
     namespace "com.digitalticketsmobile"
     defaultConfig {
         applicationId "com.digitalticketsmobile"
@@ -81,6 +111,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue "string", "build_config_package", "com.digitalticketsmobile"
     }
     signingConfigs {
         debug {
@@ -93,6 +124,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -107,6 +139,11 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+
+    implementation platform('com.google.firebase:firebase-bom:32.2.3')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
