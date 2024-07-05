@@ -14,14 +14,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@digital-tickets-project/types": "^1.0.16",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-firebase/app": "^20.1.0",
     "@react-native-firebase/firestore": "^20.1.0",
+    "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.74.2",
     "react-native-config": "^1.5.2",
     "react-native-progress": "^5.0.1",
     "react-native-svg": "^15.3.0",
-    "react-native-svg-transformer": "^1.4.0"
+    "react-native-svg-transformer": "^1.4.0",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -32,6 +36,7 @@
     "@react-native/metro-config": "0.74.84",
     "@react-native/typescript-config": "0.74.84",
     "@svgr/webpack": "^8.1.0",
+    "@types/lodash": "^4.17.6",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
