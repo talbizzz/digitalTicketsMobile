@@ -3,58 +3,47 @@ import {RegistrationScreensWrapper} from '../components/RegistrationScreensWrapp
 import {TextField} from '../../../core/components/textInput/TextField';
 import {useEffect, useState} from 'react';
 import {ScreenNames} from '../utils/handleSubmitScreen';
-import {useMainStore} from '../../../core/store/mainStore';
+import DatePicker from 'react-native-date-picker';
 import {RegistrationFlag} from '../../../core/store/registrationSlice';
-import {IconButton} from '../../../core/components/buttons/IconButton';
 
-export const RegistrationNameScreen = () => {
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState(false);
+export const RegistrationBirthdayScreen = () => {
+  const [date, setDate] = useState<Date>();
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
-  const setRegistrationData = useMainStore(state => state.setRegistrationData);
-
-  const errorMessage = 'Please enter your name.';
 
   const handleNext = () => {
-    if (name.length < 1) {
-      setNameError(true);
-    } else {
-      setNameError(false);
-    }
     return {
-      screenName: ScreenNames.name,
-      modifiedRegistrationFlag: 'name' as RegistrationFlag,
-      flagValue: name,
+      screenName: ScreenNames.birthday,
+      modifiedRegistrationFlag: 'birthday' as RegistrationFlag,
+      flagValue: date,
     };
   };
 
   useEffect(() => {
-    if (name.length > 0) {
+    if (date) {
       setNextButtonDisabled(false);
     } else {
       setNextButtonDisabled(true);
     }
-  }, [name]);
+  }, [date]);
 
   return (
     <RegistrationScreensWrapper
-      headline="What is your name?"
+      headline="When is your birthday?"
       handleNext={handleNext}
       nextButtonDisabled={nextButtonDisabled}>
-      <TextField
-        textToTheLeft
-        placeholder="John"
-        value={name}
-        onChangeText={setName}
-        errorMessage={nameError ? errorMessage : undefined}
-      />
+      <View style={styles.container}>
+        <DatePicker
+          date={date ?? new Date()}
+          onDateChange={setDate}
+          mode="date"
+        />
+      </View>
     </RegistrationScreensWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

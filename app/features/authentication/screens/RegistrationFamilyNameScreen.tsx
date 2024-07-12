@@ -3,50 +3,47 @@ import {RegistrationScreensWrapper} from '../components/RegistrationScreensWrapp
 import {TextField} from '../../../core/components/textInput/TextField';
 import {useEffect, useState} from 'react';
 import {ScreenNames} from '../utils/handleSubmitScreen';
-import {useMainStore} from '../../../core/store/mainStore';
 import {RegistrationFlag} from '../../../core/store/registrationSlice';
-import {IconButton} from '../../../core/components/buttons/IconButton';
 
-export const RegistrationNameScreen = () => {
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState(false);
+export const RegistrationFamilyNameScreen = () => {
+  const [familyName, setFamilyName] = useState('');
+  const [error, setError] = useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
-  const setRegistrationData = useMainStore(state => state.setRegistrationData);
 
   const errorMessage = 'Please enter your name.';
 
   const handleNext = () => {
-    if (name.length < 1) {
-      setNameError(true);
+    if (familyName.length < 1) {
+      setError(true);
     } else {
-      setNameError(false);
+      setError(false);
     }
     return {
-      screenName: ScreenNames.name,
-      modifiedRegistrationFlag: 'name' as RegistrationFlag,
-      flagValue: name,
+      screenName: ScreenNames.familyName,
+      modifiedRegistrationFlag: 'familyName' as RegistrationFlag,
+      flagValue: familyName,
     };
   };
 
   useEffect(() => {
-    if (name.length > 0) {
+    if (familyName.length > 0) {
       setNextButtonDisabled(false);
     } else {
       setNextButtonDisabled(true);
     }
-  }, [name]);
+  }, [familyName]);
 
   return (
     <RegistrationScreensWrapper
-      headline="What is your name?"
+      headline="What is your family name?"
       handleNext={handleNext}
       nextButtonDisabled={nextButtonDisabled}>
       <TextField
         textToTheLeft
-        placeholder="John"
-        value={name}
-        onChangeText={setName}
-        errorMessage={nameError ? errorMessage : undefined}
+        placeholder="Doe"
+        value={familyName}
+        onChangeText={setFamilyName}
+        errorMessage={error ? errorMessage : undefined}
       />
     </RegistrationScreensWrapper>
   );

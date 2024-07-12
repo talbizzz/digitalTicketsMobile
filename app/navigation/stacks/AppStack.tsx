@@ -1,6 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MainStack, MainStackParams} from './MainStack';
-import {AuthStack, AuthStackParams} from './AuthStack';
+import AuthStack, {AuthStackParams} from './AuthStack';
+import {useHandleUserAuthentication} from './utils/useHandleUserAuthentication';
+import {useEffect} from 'react';
+import {useMainStore} from '../../core/store/mainStore';
 
 export type StackParams<T> = {screen: keyof T; params: T[keyof T]};
 
@@ -12,10 +15,10 @@ export type AppStackParams = {
 const Stack = createNativeStackNavigator<AppStackParams>();
 
 export const AppStack = () => {
-  const loggedIn = true;
+  const {isLoggedIn} = useHandleUserAuthentication();
 
   const switchStack = () => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       return <Stack.Screen name="MainStack" component={MainStack} />;
     }
     return <Stack.Screen name="AuthStack" component={AuthStack} />;

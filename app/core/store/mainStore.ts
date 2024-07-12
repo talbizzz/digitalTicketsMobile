@@ -9,8 +9,9 @@ import {
 import {immer} from 'zustand/middleware/immer';
 import {createWithEqualityFn} from 'zustand/traditional';
 import {createUserSlice, UserState} from './userSlice';
+import {createRegistrationSlice, RegistrationState} from './registrationSlice';
 
-export type State = UserState;
+export type State = UserState & RegistrationState;
 
 export const useMainStore = createWithEqualityFn<State>()(
   subscribeWithSelector(
@@ -19,6 +20,7 @@ export const useMainStore = createWithEqualityFn<State>()(
         persist(
           (...a) => ({
             ...createUserSlice(...a),
+            ...createRegistrationSlice(...a),
           }),
           {
             name: 'store',
