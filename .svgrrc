@@ -1,0 +1,7 @@
+{
+  "replaceAttrValues": {
+    "white": "#fff",
+    "#fff": "{props.primary}",
+    "#f00": "{props.secondary}"
+  }
+}

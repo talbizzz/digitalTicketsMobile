@@ -1,4 +1,53 @@
 import os
+
+# Image Generator
+target = "app/core/utils/getAsset.ts"
+path = "app/assets/images"
+
+introMessage = "/* This file is generated automatically by generateAssets.py. Do not edit it manually. \nThe function getAsset() helps us to type our assets and avoid confusing require calls.\nThis is a wrapper for the base react native image handling => https://reactnative.dev/docs/images \nTo update please run `npm run generateAssets.ts`*/\n"
+output = (
+    introMessage
+    + "import { ImageSourcePropType } from 'react-native'; export type AssetName ="
+)
+
+
+def containsAt(elm):
+    return "@" not in elm
+
+
+fileList = list(filter(containsAt, os.listdir(path)))
+
+print(fileList)
+
+
+for fileName in sorted(fileList):
+    if ".png" in fileName:
+        output = output + " | '" + fileName.replace(".png", "") + "'"
+
+output = (
+    output +
+    ";export const assets: { [name in AssetName]: ImageSourcePropType } = {"
+)
+for fileName in sorted(fileList):
+    if ".png" in fileName:
+        output = (
+            output
+            + " '"
+            + fileName.replace(".png", "")
+            + "': require('../../assets/images/"
+            + fileName
+            + "'),"
+        )
+output = (
+    output
+    + "};export default function getAsset(name: AssetName) {  return assets[name];}"
+)
+print(output)
+f = open(target, "w")
+f.write(output)
+f.close()
+
+# SVG Generator
 target = "app/core/components/IconSVG.tsx"
 path = "app/assets/svgs"
 introMessage = "/* This component is generated automatically by generateAssets.py. Do not edit it manually. \nThe component getAsset() helps us to use our theme on the svgs and make importing easier.\nTo update please run `npm run generateAssets.ts`*/\n"
@@ -25,7 +74,7 @@ output += (
     importSection + "\n\n" + typeSection + "; " + "\n\n" + svgObject + "};" + "\n\n"
 )
 
-output += "type Props = { name: SVGName;color?: string;size?:number } & SvgProps;\n\n export const IconSVG = (props: Props) => {const {name, color, size} = props; const Icon = svgs[name]; return ( <Icon {...props} fill={color ?? colors.primary} width={size ?? 24} height={size ?? 24}/>);};"
+output += "export type IconProps = { name: SVGName; primaryColor?: string; secondaryColor?: string; } & SvgProps;\n\n export const IconSVG = (props: IconProps) => {const {name, primaryColor, secondaryColor} = props; const Icon = svgs[name]; return ( <Icon {...props} primary={primaryColor ?? colors.primary} secondary={secondaryColor ?? colors.medium}/>);};"
 print(output)
 f = open(target, "w")
 f.write(output)

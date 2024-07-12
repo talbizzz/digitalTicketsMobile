@@ -1,26 +1,32 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../styles/colors';
 import {IconSVG, SVGName} from '../IconSvg';
+import {hexWithOpacity} from '../../utils/helpers';
 
 type Props = {
   icon: SVGName | undefined;
   size: number;
-  iconColor?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
   bgColor?: string;
   onPress?: () => void;
   backgroundFilled?: boolean;
+  disabled?: boolean;
+  containerStyle?: any;
+  backgroundCircleVisible?: boolean;
 };
 
 export const IconButton = (props: Props) => {
   const size = props.backgroundFilled ? props.size * 1.1 : props.size;
+
   return (
     <TouchableOpacity
+      disabled={props.disabled}
       style={[
+        props.containerStyle,
         styles.container,
-        {
-          backgroundColor: props.backgroundFilled
-            ? props.iconColor ?? colors.primary
-            : props.bgColor ?? 'none',
+        props.backgroundFilled && {
+          backgroundColor: props.bgColor ?? colors.primary,
           height: size * 2,
           width: size * 2,
         },
@@ -28,12 +34,14 @@ export const IconButton = (props: Props) => {
       onPress={props.onPress}>
       <IconSVG
         name={props.icon as SVGName}
-        size={size}
-        color={
+        primaryColor={
           props.backgroundFilled
-            ? props.bgColor ?? 'none'
-            : props.iconColor ?? colors.primary
+            ? props.primaryColor ?? colors.dark
+            : props.primaryColor ?? colors.primary
         }
+        secondaryColor={props.secondaryColor ?? colors.medium}
+        width={size}
+        height={size}
       />
     </TouchableOpacity>
   );
