@@ -10,6 +10,8 @@ import {HomeScreen} from '../features/home/HomeScreen';
 export type TabNavigatorParams = {
   HomeScreen: undefined;
   ProfileScreen: undefined;
+  ScannerScreen: undefined;
+  LocalisationScanner: undefined;
 };
 
 const bottomTabNavigator = createBottomTabNavigator<TabNavigatorParams>();
@@ -27,6 +29,11 @@ export const TabNavigator = () => {
       }}
       tabBar={tabBarMenu}>
       <bottomTabNavigator.Screen name="HomeScreen" component={HomeScreen} />
+      <bottomTabNavigator.Screen name="ScannerScreen" component={HomeScreen} />
+      <bottomTabNavigator.Screen
+        name="LocalisationScanner"
+        component={HomeScreen}
+      />
       <bottomTabNavigator.Screen name="ProfileScreen" component={HomeScreen} />
     </bottomTabNavigator.Navigator>
   );

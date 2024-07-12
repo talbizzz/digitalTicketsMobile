@@ -36,7 +36,7 @@ export const TabBarMenu = (props: Props) => {
     {
       type: 'Icon',
       name: 'Profile',
-      isActive: currentIndex === 2,
+      isActive: currentIndex === 3,
       onPress: () => onTabBarButtonPressed(routes[3]),
     },
   ];

@@ -39,8 +39,7 @@ export const Footer = (props: Props) => {
               key={index}
               size={24}
               icon={item?.name}
-              iconColor={colors.primary}
-              bgColor={colors.background}
+              primaryColor={item?.isActive ? colors.background : colors.primary}
               backgroundFilled={item?.isActive}
               onPress={item?.onPress}
             />
