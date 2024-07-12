@@ -1,15 +1,16 @@
 import {View, Text, StyleSheet} from 'react-native';
-import {MainButton} from '../../core/components/buttons/MainButton';
-import {colors} from '../../styles/colors';
+import {
+  MainButton,
+  MainButtonColor,
+} from '../../core/components/buttons/MainButton';
+import {useMainStore} from '../../core/store/mainStore';
+import {getUser} from '../../core/store/userSlice';
 
 export const HomeScreen = () => {
+  const user = useMainStore(getUser);
   return (
     <View style={styles.container}>
-      <MainButton
-        title="Next"
-        onPress={() => console.log('Button pressed')}
-        color={'primary'}
-      />
+      <Text style={styles.text}>Welcome {user?.name}</Text>
     </View>
   );
 };
